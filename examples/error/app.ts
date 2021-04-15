@@ -1,11 +1,13 @@
-import axios from '../../src/index'
+import axios, { AxiosError } from '../../src/index'
 
 axios({
     method: 'get',
     url: '/error/get1'
 }).then((res) => {
     console.log(res)
-}).catch((e) => {
+}).catch((e: AxiosError) => {
+    console.log(e.message)
+    console.log(e.code)
     console.log(e)
 })
 
