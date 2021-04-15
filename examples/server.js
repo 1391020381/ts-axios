@@ -96,6 +96,16 @@ router.put("/extend/put", function (req, res) {
 router.patch("/extend/patch", function (req, res) {
   res.json(req.body);
 });
+router.get('/extend/user', function (req, res) {
+  res.json({
+    code: 0,
+    message: "请求成功",
+    result: {
+      name: "jack",
+      age: 25
+    }
+  })
+})
 app.use(router)
 const port = process.env.PORT || 8080
 module.exports = app.listen(port, () => {

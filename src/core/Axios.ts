@@ -1,8 +1,16 @@
 import { AxiosRequestConfig, AxiosPromise, Method } from '../types'
 import dispathRequest from './dispatchRequest'
 export default class Axios {
-  request(config: AxiosRequestConfig): AxiosPromise {
-    return dispathRequest(config)
+  request(url: any, config?: AxiosRequestConfig): AxiosPromise {
+    if (typeof url === 'string') {
+      if (!config) {
+        config = {}
+      }
+      config.url = url
+    } else {
+      config = url
+    }
+    return dispathRequest(config!)
   }
   get(url: string, config?: AxiosRequestConfig): AxiosPromise {
     return this._requestMethodWithouData('get', url, config)
