@@ -21,7 +21,7 @@ export default class Axios {
   constructor() {
     this.interceptors = {
       request: new InterceptorManager<AxiosRequestConfig>(),
-      response: new InterceptorManager<AxiosResponse>()
+      response: new InterceptorManager<AxiosResponse<any>>()
     }
   }
   request(url: any, config?: AxiosRequestConfig): AxiosPromise {
@@ -48,7 +48,7 @@ export default class Axios {
     let promise = Promise.resolve(config)
     while (chain.length) {
       const { resolved, rejected } = chain.shift()!
-      promise = promise.then(resolved, rejected)
+      promise = promise.then(resolved, rejected) // 都链式执行在 第一个 resolved函数dispathRequest的 then
     }
     return promise
   }
