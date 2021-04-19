@@ -6,6 +6,7 @@ export interface AxiosRequestConfig {
   headers?: any
   responseType?: any
   timeout?: number
+  [propName: string]: any
 }
 
 export interface AxiosResponse<T = any> {
@@ -44,6 +45,9 @@ export interface Axios {
 export interface AxiosInstance extends Axios {
   <T = any>(config: AxiosRequestConfig): AxiosPromise<T>
   <T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
+}
+export interface AxiosStatic extends AxiosInstance {
+  create(config?: AxiosRequestConfig): AxiosInstance
 }
 export interface AxiosInterceptorManager<T> {
   use(resolved: ResolvedFn<T>, rejected?: RejectedFn): number
