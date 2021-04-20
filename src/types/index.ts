@@ -7,8 +7,12 @@ export interface AxiosRequestConfig {
   responseType?: any
   timeout?: number
   [propName: string]: any
+  transformRequest?: AxiosTransformer | AxiosTransformer[]
+  transformResponse?: AxiosTransformer | AxiosTransformer[]
 }
-
+export interface AxiosTransformer {
+  (data: any, headers?: any): any
+}
 export interface AxiosResponse<T = any> {
   data: T
   status: number
