@@ -113,6 +113,12 @@ router.get('/interceptor/get', function (req, res) {
 router.post('/config/post', function (req, res) {
   res.json(req.body)
 })
+router.post('/cancel/post',function(req,res){
+  res.json(req.body)
+})
+router.get('/cancel/get',function(req,res){
+  res.end('/cancel/get')
+})
 app.use(router)
 const port = process.env.PORT || 8080
 module.exports = app.listen(port, () => {
