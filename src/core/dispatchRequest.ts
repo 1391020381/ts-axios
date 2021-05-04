@@ -5,6 +5,7 @@ import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
 import xhr from './xhr'
 import transform from './transform'
 import { flattenHeaders } from '../helpers/headers'
+import {isAbsoluteURL,combineURL} from '../helpers/url'
 function axios(config: AxiosRequestConfig): AxiosPromise {
   throIfCancellationRequested(config)
   processConfig(config)
@@ -24,8 +25,11 @@ function throIfCancellationRequested(config:AxiosRequestConfig) {
   }
 }
 function transformUrl(config: AxiosRequestConfig): string {
-  const { url, params } = config
-  return buildURL(url!, params)
+  let { url, params,paramsSerializer,baseURL } = config
+  if (baseURL && !isAbsoluteURL(url!)) {
+    url = combineURL(baseURL, url)
+  }
+  return buildURL(url!, params,paramsSerializer)
 }
 function transformRequestData(config: AxiosRequestConfig): any {
   return transformRequest(config.data)
